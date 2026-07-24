@@ -160,6 +160,8 @@ The main mechanical component is the mount, featuring two compartments. A thick-
 
 To connect the NEMA17 to the mount, there is a face plate, which also features guides for the beaded-chain to be routed through.
 
+There's also a cosmetic lid which is friction-fit using two pins for alignment and security, hiding the internal circuit while being easy to remove.
+
 The sprocket is parametrically designed based on the following formulas.
 
 The box features hexagonal ventilation holes which balance structural integrity and FDM manufacturability with sufficient surface area for thermal convection to prevent overheating.
@@ -198,16 +200,15 @@ I kept this deliberately simple so that I could write it fully myself, and build
 
 **What it does:**
 - Serial-based control to move to a pre-defined top and bottom position for the blinds
-- Pause command to cancel movement instantly.
+- Pause command to cancel movement with smooth acceleration.
 
 **What it deliberately doesn't do (and why):**
 - Other features (e.g. Matter over WiFi, auto calibration) have been left out due to time constraints for now and will be developed further in the future.
 
 **Walkthrough**
 
-* **`read_int()`:** Non-blocking Serial parser that polls for user commands, processes valid inputs (`0: Stop`, `1: Top`, `2: Bottom`), and flushes trailing buffer characters without stalling `loop()`.
+* **`read_int()`:** Serial user input parser that checks for user commands and accepts valid inputs as commands (`0: Stop`, `1: Top`, `2: Bottom`).
 * **`FastAccelStepper` Engine:** Asynchronously drives the STEP/DIR signal generation using ESP32 hardware timers, allowing smooth acceleration and deceleration ramps in the background.
-* **Holding Torque Control:** Explicitly maintains active motor outputs (`enableOutputs()`) when idle to prevent vertical blind loads from backdriving the motor under gravity.
 
 ---
 
@@ -232,9 +233,8 @@ I kept this deliberately simple so that I could write it fully myself, and build
 
 ## What's Next
 
-- The next step is writing the implementation that includes Matter, rather than the rudimentary hard-coded values the script currently uses. 
+- The next step is writing the implementation that includes Matter, rather than the basic hard-coded values the script currently uses. 
 	- For the implementation, I want to keep it buttonless for aesthetics and simplicity of circuitry. So I'm planning to use StallGuard to determine increased resistance at the top of the range of motion (ROM) for calibration, as well as a reduced resistance at the bottom of ROM.
-- I'd also like to polish the CAD enclosure tolerances.
 
 ---
 
