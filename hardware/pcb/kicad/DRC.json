@@ -1,0 +1,219 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-07-09T16:36:25",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "10.0.4",
+    "schematic_parity": [],
+    "source": "kicad.kicad_pcb",
+    "unconnected_items": [
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Track [+5V] on F.Cu, length 5.6427 mm",
+                    "pos": {
+                        "x": 47.1,
+                        "y": 83.114
+                    },
+                    "uuid": "5c3e059a-8ed8-4961-b10c-df3e0047bd3e"
+                },
+                {
+                    "description": "PTH pad 3 [+5V] of MP1584EN1",
+                    "pos": {
+                        "x": 51.09,
+                        "y": 84.564
+                    },
+                    "uuid": "6107381d-3864-48e2-8599-3a85375365b8"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Track [+12V] on F.Cu, length 6.9806 mm",
+                    "pos": {
+                        "x": 37.484,
+                        "y": 89.5
+                    },
+                    "uuid": "9598187b-b6db-46a9-8f10-9001943a612c"
+                },
+                {
+                    "description": "PTH pad 1 [+12V] of MP1584EN1",
+                    "pos": {
+                        "x": 32.548,
+                        "y": 87.104
+                    },
+                    "uuid": "ffe290be-19aa-4eb9-b92a-1594e039ef1e"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        }
+    ],
+    "violations": [
+        {
+            "description": "Annular width (board setup constraints min annular width 0.2000 mm; actual 0.1500 mm)",
+            "items": [
+                {
+                    "description": "Via [/M1B] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 107.0
+                    },
+                    "uuid": "9f4d74ec-49cf-45af-9ec3-3e6cefe64aea"
+                }
+            ],
+            "severity": "error",
+            "type": "annular_width"
+        },
+        {
+            "description": "Annular width (board setup constraints min annular width 0.2000 mm; actual 0.1500 mm)",
+            "items": [
+                {
+                    "description": "Via [/M1A] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 104.5
+                    },
+                    "uuid": "c87d7aab-a15b-41da-9f3e-33e4ca7981f9"
+                }
+            ],
+            "severity": "error",
+            "type": "annular_width"
+        },
+        {
+            "description": "Annular width (board setup constraints min annular width 0.2000 mm; actual 0.1500 mm)",
+            "items": [
+                {
+                    "description": "Via [/M2A] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 102.0
+                    },
+                    "uuid": "a30424c9-20ac-496a-84f6-6da6d7ffa6cf"
+                }
+            ],
+            "severity": "error",
+            "type": "annular_width"
+        },
+        {
+            "description": "Annular width (board setup constraints min annular width 0.2000 mm; actual 0.1500 mm)",
+            "items": [
+                {
+                    "description": "Via [/M2B] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 99.5
+                    },
+                    "uuid": "f5cbba5b-a126-4006-9bb6-4a18719400b3"
+                }
+            ],
+            "severity": "error",
+            "type": "annular_width"
+        },
+        {
+            "description": "Via diameter (board setup constraints min diameter 0.7000 mm; actual 0.6000 mm)",
+            "items": [
+                {
+                    "description": "Via [/M1B] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 107.0
+                    },
+                    "uuid": "9f4d74ec-49cf-45af-9ec3-3e6cefe64aea"
+                }
+            ],
+            "severity": "error",
+            "type": "via_diameter"
+        },
+        {
+            "description": "Via diameter (board setup constraints min diameter 0.7000 mm; actual 0.6000 mm)",
+            "items": [
+                {
+                    "description": "Via [/M1A] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 104.5
+                    },
+                    "uuid": "c87d7aab-a15b-41da-9f3e-33e4ca7981f9"
+                }
+            ],
+            "severity": "error",
+            "type": "via_diameter"
+        },
+        {
+            "description": "Via diameter (board setup constraints min diameter 0.7000 mm; actual 0.6000 mm)",
+            "items": [
+                {
+                    "description": "Via [/M2A] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 102.0
+                    },
+                    "uuid": "a30424c9-20ac-496a-84f6-6da6d7ffa6cf"
+                }
+            ],
+            "severity": "error",
+            "type": "via_diameter"
+        },
+        {
+            "description": "Via diameter (board setup constraints min diameter 0.7000 mm; actual 0.6000 mm)",
+            "items": [
+                {
+                    "description": "Via [/M2B] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 66.5,
+                        "y": 99.5
+                    },
+                    "uuid": "f5cbba5b-a126-4006-9bb6-4a18719400b3"
+                }
+            ],
+            "severity": "error",
+            "type": "via_diameter"
+        },
+        {
+            "description": "Text thickness out of range (board setup constraints silk text thickness min thickness 0.1500 mm; actual 0.1000 mm)",
+            "items": [
+                {
+                    "description": "Reference field of TMC2209",
+                    "pos": {
+                        "x": 57.37,
+                        "y": 100.77
+                    },
+                    "uuid": "33c2b8a5-f4fd-4d75-a067-44da25bc8160"
+                }
+            ],
+            "severity": "warning",
+            "type": "text_thickness"
+        }
+    ]
+}

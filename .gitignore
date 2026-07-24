@@ -1,0 +1,54 @@
+
+# Operating System Files
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+
+# Temporary Files
+
+*.bak
+*.sw?
+*~
+*.nib
+local.properties
+
+
+# Build Outputs
+
+build/
+bin/
+obj/
+out/
+dist/
+.pio/
+.pioenvs/
+.piolibdeps/
+*.bin
+*.elf
+
+
+# IDEs & Editors
+
+.idea/
+.vscode/
+.obsidian/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+
+# KiCad Backups & History
+
+.history/
+*.kicad_pcb-bak
+*.sch-bak
+*-backups/
+_saved-*/
