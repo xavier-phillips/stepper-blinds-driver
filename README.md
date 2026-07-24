@@ -2,7 +2,7 @@
 
 # stepper-blinds-driver
 
-**A NEMA17-based, ultra-quiet retrofit beaded-chain blinds driver.**
+**An ultra-quiet NEMA 17 retrofit driver for beaded-chain roller blinds.**
 
 Xavier Phillips
 
@@ -14,7 +14,7 @@ Xavier Phillips
 ![PCB](https://img.shields.io/badge/PCB-KiCad-314CB0)
 ![CAD](https://img.shields.io/badge/CAD-Onshape-1f6feb)
 
-![Finished device](docs/hero.jpg)
+![Finished device](docs/hero-internals.jpg)
 _The completed stepper blinds driver with the top lid removed, showing the main sprocket and the custom PCB._
 
 </div>
