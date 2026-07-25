@@ -17,6 +17,7 @@ desktop.ini
 *.sw?
 *~
 *.nib
+*.lck
 local.properties
 
 
