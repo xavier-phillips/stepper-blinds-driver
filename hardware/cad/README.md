@@ -1,6 +1,8 @@
 # CAD Files
 
-[View the assembly on Onshape](https://cad.onshape.com/documents/d6564a825545e86e8dcb608a/w/c5c19c300cbe94424be6aa39/e/ca30e980ba381ea447399439?renderMode=0&uiState=6a6411d695b44b8f7aa283c7)
+Assembly (Onshape doesn't like being linked to from GitHub — copy this into your browser rather than clicking):
+
+`https://cad.onshape.com/documents/d6564a825545e86e8dcb608a/w/c5c19c300cbe94424be6aa39/e/ca30e980ba381ea447399439`
 
 ## Mechanical (Onshape)
 
