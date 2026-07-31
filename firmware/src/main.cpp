@@ -1,17 +1,17 @@
 #include <Arduino.h>
 #include <FastAccelStepper.h>
 
-constexpr int PIN_EN = 14;
+constexpr int PIN_EN     = 14;
 constexpr int PIN_SPREAD = 15;
-constexpr int PIN_UART = 18;
-constexpr int PIN_STEP = 20;
-constexpr int PIN_DIR = 21;
+constexpr int PIN_UART   = 18;
+constexpr int PIN_STEP   = 20;
+constexpr int PIN_DIR    = 21;
 
 constexpr int SPEED = 500;  // step per sec
 constexpr int ACCEL = 1000; // step per sec^2
 
-constexpr int TOP_POSITION = 0;       // step per sec^2
-constexpr int BOTTOM_POSITION = 1000; // step per sec^2
+constexpr int TOP_POSITION = 0;       // steps
+constexpr int BOTTOM_POSITION = 1000; // steps
 
 enum user_input
 {
@@ -31,7 +31,7 @@ int read_int()
   {
     command = Serial.parseInt();
 
-    Serial.printf("Command recieved: %d\n", command);
+    Serial.printf("Command received: %d\n", command);
   }
 
   return command;
@@ -54,7 +54,7 @@ void setup()
 
   if (stepper)
   {
-    Serial.println("SUCESS: Stepper connected!");
+    Serial.println("SUCCESS: Stepper connected!");
 
     stepper->setDirectionPin(PIN_DIR);
     stepper->setEnablePin(PIN_EN);

@@ -6,7 +6,7 @@
 
 Xavier Phillips
 
-![Status](https://img.shields.io/badge/status-v1.0--functional-blue)
+![Status](https://img.shields.io/badge/status-in--progress-blue)
 ![Type](https://img.shields.io/badge/type-personal%20project-lightgrey)
 ![Motor](https://img.shields.io/badge/Motor-NEMA17%20Stepper-00979D)
 ![Interface](https://img.shields.io/badge/Interface-Serial%20CLI-620999)
@@ -15,7 +15,7 @@ Xavier Phillips
 ![CAD](https://img.shields.io/badge/CAD-Onshape-1f6feb)
 
 ![Finished device](docs/hero-internals.jpg)
-_The completed stepper blinds driver with the top lid removed, showing the main sprocket and the custom PCB._
+_The stepper blinds driver with the top lid removed, showing the main sprocket and the custom PCB._
 
 </div>
 
@@ -196,7 +196,7 @@ I decided to use a custom PCB because I wanted to make multiple of the device, a
 ---
 
 ## Control Software
-I kept this deliberately simple so that I could write it fully myself, and build on it later, rather than building something big with agentic tools I wouldn't fully understand myself.
+I wanted to keep this deliberately simple and write it fully myself so I could understand how the stepper control loop works, rather than relying on agentic tools to write something complex that I wouldn't fully understand under the hood.
 
 **What it does:**
 - Serial-based control to move to a pre-defined top and bottom position for the blinds
@@ -212,13 +212,159 @@ I kept this deliberately simple so that I could write it fully myself, and build
 
 ---
 
-## Build Log
+# Build Log
 
-**30 Jun** - I used a water bucket attached to my blinds to measure the force required to move them. At 1.7kg, they held stationary, but at 1.8kg, they were able to move. This is the figure I used to determine that the 20mm NEMA17 had insufficient torque, and made me decide to use the 34mm instead.
+### 2026-06-30 - Measuring required pull force
 
-**1 July** - finished more CAD. ordered the NEMA 17. acquired DC power source.
+![alt text](docs/testing-required-force-specs.jpg)
 
-**6 July** - ordered parts off amazon AU, need to go to jaycar tomorrow.
+- Used a water bucket attached to the blinds to measure the force required to move them.
+- At 1.7 kg, the blinds remained stationary. At 1.8 kg, the blinds were able to move.
+- The 20 mm NEMA17 was determined to have insufficient torque, leading to the decision to use the 34 mm NEMA17 instead.
+
+### 2026-07-02 - Initial CAD design
+
+![Initial CAD design](docs/early-cad-dovetail.png)
+
+![alt text](docs/early-cad-design-workflow.jpg)
+
+ - This design has a removable circuit box area, using dovetail cutouts. It also has removable guides for the beaded chains, secured by M2 screws.
+
+### 2026-07-05 - Perfboard Assembly
+
+![Perfboard Assembly](docs/perfboard-assembly.png)
+
+ - Image of the components laid out on a perfboard. I've cut the perfboard down to a smaller size for compactness in this image, but for later perfboard iterations I used the full size, just for ease of wiring and troubleshooting (since it was only a prototype, the compactness was evaluated as somewhat irrelevant)
+
+### 2026-07-07 - PCB Design 1
+
+![PCB Design 1](docs/pcb-schematic-kicad-v1.png)
+
+### 2026-07-10 - PCB Design 2
+
+![PCB Design 2](docs/pcb-schematic-kicad-v2.png)
+
+- Modified the PCB schematic in KiCAD to flip the footprint of the ESP32C6 by 180 degrees. This ensures that it can be wired correctly while having the USB port point towards the edge of the board, instead of the centre. Code was also updated to reflect the new pins.
+
+### 2026-07-21 - Control Software Draft
+
+```cpp
+#include <Arduino.h>
+#include <FastAccelStepper.h>
+
+constexpr int PIN_EN = 14;
+constexpr int PIN_SPREAD = 15;
+constexpr int PIN_UART = 18;
+constexpr int PIN_STEP = 20;
+constexpr int PIN_DIR = 21;
+
+constexpr int SPEED = 500;  // step per sec
+constexpr int ACCEL = 1000; // step per sec^2
+
+constexpr int TOP_POSITION = 0;       // steps
+constexpr int BOTTOM_POSITION = 1000; // steps
+
+enum user_input
+{
+  PAUSE,
+  TOP,
+  BOTTOM,
+  OPTIONS_COUNT
+};
+
+user_input command = PAUSE;
+
+int read_int()
+{
+  int command = -1;
+
+  if (Serial.available() > 0)
+  {
+    command = Serial.parseInt();
+
+    Serial.printf("Command received: %d\n", command);
+  }
+
+  return command;
+};
+
+FastAccelStepperEngine engine = FastAccelStepperEngine();
+FastAccelStepper *stepper = nullptr;
+
+void setup()
+{
+  pinMode(PIN_STEP, OUTPUT);
+  digitalWrite(PIN_SPREAD, LOW);
+
+  Serial.begin(115200);
+  delay(1000);
+
+  engine.init();
+
+  stepper = engine.stepperConnectToPin(PIN_STEP);
+
+  if (stepper)
+  {
+    Serial.println("SUCCESS: Stepper connected!");
+
+    stepper->setDirectionPin(PIN_DIR);
+    stepper->setEnablePin(PIN_EN);
+    stepper->setAutoEnable(true);
+    stepper->setSpeedInHz(SPEED);
+    stepper->setAcceleration(ACCEL);
+    stepper->setCurrentPosition(0);
+  }
+  else
+  {
+    Serial.println("ERROR: Stepper failed to connect.");
+  }
+}
+
+void loop()
+{
+
+  command = static_cast<user_input>(read_int());
+
+  if (command != -1)
+  {
+    Serial.printf("Current Position: %d Enter an option:\n\t0.Pause\n\t1. Move Top\n\t2. Move Bottom\n", stepper->getCurrentPosition());
+
+    switch (command)
+    {
+    case PAUSE:
+      Serial.println("Action: STOP");
+      stepper->stopMove();
+      break;
+
+    case TOP:
+      Serial.println("Action: TOP");
+      stepper->moveTo(TOP_POSITION, false);
+      break;
+
+    case BOTTOM:
+      Serial.println("Action: BOTTOM");
+      stepper->moveTo(BOTTOM_POSITION, false);
+      break;
+
+    default:
+      Serial.printf("Invalid command! Enter a valid integer between 1 and %d.\n", OPTIONS_COUNT);
+      break;
+    }
+  }
+}
+```
+ - Just a basic serial-control script for testing basic functionality (movement up, down, and pausing)
+
+### 2026-07-24 - CAD Design 2
+
+![CAD Design 2](docs/cad-design-v2.png)
+
+ - This was a major transition. The two-box dovetail architecture was replaced with a single box with two compartments. 
+
+### 2026-07-30 - Motor Testing
+
+- Upon arrival of the board (**2026-07-30**) and initial basic testing of roller blind movement (a short test program), I determined that the NEMA17 tended to stall quite easily. Upon closer inspection and troubleshooting (including verifying that it did work with a much lighter, smaller roller blind), I determined that the cause was simply insufficient current. The 12V wall adapter I was using only had a rated current of 1A, much less than the planned 3A.
+- Order a 12V 3A power supply ASAP, in order to provide sufficient power for the NEMA17 to lift basic blinds.
 
 ---
 
@@ -240,9 +386,9 @@ I kept this deliberately simple so that I could write it fully myself, and build
 
 ## Reflection
 
-I learned a massive amount from this project. On the CAD side, I learned about using variables in my designs, rather than magic numbers, so everything in my design is fully adjustable via the variables table. I also learned about a lot more Onshape's sketch tools (tangent, normal, and perpendicular constraints), as well as their 3D tools (Featurescripts like Grid Extrude for ventilation, alongside operations like revolve which I used for the sprocket). 
+I learned a massive amount from this project. On the CAD side, I learned about using variables in my designs, rather than "magic numbers" for dimensions, so everything in my design is fully adjustable via the variables table. I also learned about a lot more Onshape's sketch tools (tangent, normal, and perpendicular constraints), as well as their 3D tools (Featurescripts like Grid Extrude for ventilation, alongside operations like revolve which I used for the sprocket). 
 
-I also learned KiCAD from scratch here, which was a great learning experience and upskilling opportunity into a new field. Historically I used graphical software like Canva or Illustrator for circuit diagrams, but learning how to write proper, verified schematics was really enjoyable, and seeing my own custom-designed PCB arrive was extremely rewarding. Contrary to what I used to assume about PCBs, it actually _saved_ me time, as I used to have to spend weeks fiddling with breadboards because I didn't take the time to plan my circuit thoroughly. That, combined with the time saved from soldering (only took ~10min to solder the entire PCB!), allowed me to finalise all electronics in about a week.
+I also learned KiCAD from scratch during this project, which was a great learning experience and upskilling opportunity into a new field. Historically I used graphical software like Canva or Illustrator for circuit diagrams, but learning how to write proper, verified schematics was really enjoyable, and seeing my own custom-designed PCB arrive was extremely rewarding. Contrary to what I used to assume about PCBs, it actually _saved_ me time, as I used to have to spend weeks fiddling with breadboards because I didn't take the time to plan my circuit thoroughly. That, combined with the time saved from soldering (only took ~10min to solder the entire PCB!), allowed me to finalise all electronics in about a week.
 
 ---
 
