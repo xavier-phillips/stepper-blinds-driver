@@ -180,18 +180,15 @@ I decided to use a custom PCB because I wanted to make multiple of the device, a
 | NEMA 17 Stepper Motor (34mm, 1.5A) | Amazon AU | 1 | 1 | $20.99 | $20.99 |
 | TMC2209 V2.0 Stepper Driver | Amazon AU | 5 | 1 | $37.03 | $7.41 |
 | MP1584EN 3A DC-DC Buck Converter | Amazon AU | 15 | 1 | $18.87 | $1.26 |
-| Double Sided PCB Prototype Board (5x7cm) | Amazon AU | 20 | 1 | $11.29 | $0.56 |
+| Custom 2-Layer PCB | JLCPCB | 5 | 1 | $2.00 | $0.40 |
 | M3 Button Head Screw Kit | Amazon AU | 300 | 8 | $10.99 | $0.29 |
 | M3 Nylon Standoffs & Nuts Kit | Amazon AU | 320 | 4 | $12.99 | $0.16 |
 | 3M VHB Double Sided Tape | Amazon AU | 33m | 10 cm | $12.99 | $0.04 |
 | 2.1mmx5.5mm DC Power Jack (Panel Mount) | Amazon AU | 30 | 1 | $16.89 | $0.56 |
-| 40-Pin Female Header Strip (2.54mm) | Jaycar Electronics | 2 | 2 | $5.00 | $5.00 |
-| 40-Pin Header Terminal Strip (2.54mm) | Jaycar Electronics | 1 | 1 | $1.45 | $1.45 |
 | 100µF 50V Electrolytic Capacitor (Polarized) | Jaycar Electronics | 1 | 1 | $1.00 | $1.00 |
-| 60/40 Rosin Core Solder 0.71mm | Jaycar Electronics | 15g | Variable | $4.70 | $4.70 |
+| 60/40 Rosin Core Solder 0.71mm | Workshop | 15g | Variable | $0.00 | $0.00 |
 | 24 AWG Solid Core Hookup Wire | Workshop | N/A | Variable | $0.00 | $0.00 |
-| Heat Shrink Tubing | Workshop | N/A | Variable | $0.00 | $0.00 |
-| **Totals** | | | | **$201.19** | **$90.42** |
+| **Totals** | | | | **$180.75** | **$79.11** |
 
 ---
 
