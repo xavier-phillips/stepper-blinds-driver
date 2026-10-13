@@ -2,7 +2,7 @@
 
 # stepper-blinds-driver
 
-**An ultra-quiet NEMA 17 retrofit driver for beaded-chain roller blinds.**
+**A NEMA 17 retrofit driver for beaded-chain roller blinds, designed to run under 40dB (noise not yet measured).**
 
 Xavier Phillips
 
@@ -101,7 +101,7 @@ Commercial options have some limitations:
 | Area                   | Skills and tools                                                                                                                                                 |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Mechanical design      | Onshape CAD - hot-swappable cog/sprocket mount for the beaded chain, compact enclosure                                                                           |
-| PCB design             | KiCad - custom PCB for final product (goal #7); V1 currently using off-the-shelf breakouts (TMC2209 driver module, MP1584EN buck converter) on a prototype board |
+| PCB design             | KiCad - custom two-layer PCB, manufactured by JLCPCB; the first prototype used off-the-shelf breakouts (TMC2209 driver module, MP1584EN buck converter) on a perfboard |
 | Embedded programming   | C++ / Arduino on ESP32 (Non-blocking stepper driver integration)                                                                                                 |
 | Smart home integration | Google Home or Home Assistant, for scheduled automations                                                                                                         |
 | Manufacturing          | 3D printing                                                                                                                                                      |
